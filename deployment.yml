@@ -17,12 +17,12 @@ spec:
         image: sneyd321/mysql:latest
         ports:
         - containerPort: 3306
-        volumeMounts:
-        - name: mysql-volume
-          mountPath: /var/lib/mysql
+        #volumeMounts:
+        #- name: mysql-volume
+        #  mountPath: /var/lib/mysql
       imagePullSecrets:
         - name: key
-      volumes:
-      - name: mysql-volume
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
+      #volumes:
+      #- name: mysql-volume
+      #  persistentVolumeClaim:
+      #    claimName: mysql-pv-claim

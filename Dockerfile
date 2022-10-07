@@ -1,9 +1,8 @@
 FROM mysql:8
 
-ENV MYSQL_ROOT_PASSWORD="root"
+EXPOSE 3306
 
-COPY ./mysql-volume/init/init.sql /data/application/
-COPY ./mysql-volume/init/my.cnf /etc/mysql/my.cnf
+COPY init.sql /etc/mysql/init.sql
+COPY my.cnf /etc/mysql/my.cnf
 
-RUN ["mysqld", "--initialize-insecure"]
-
+RUN ["mysqld", "--initialize", "--init-file=/etc/mysql/init.sql"]
