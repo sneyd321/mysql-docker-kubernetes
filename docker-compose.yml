@@ -9,7 +9,7 @@ services:
             - SYS_NICE
 
         volumes: 
-            - C:\Users\Ryan_PC\Projects\RoomRv2-Backend\mysql\mysql-volume\data:/var/lib/mysql 
+            - C:\Users\Ryan_PC\Projects\RoomRv3-Backend\mysql\mysql-volume:/var/lib/mysql 
 
  
             

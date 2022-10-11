@@ -2,9 +2,9 @@ CREATE DATABASE IF NOT EXISTS roomr;
 USE roomr; 
 
 
-CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'mypass';
-CREATE USER 'myuser'@'%' IDENTIFIED BY 'mypass';
+CREATE USER 'test'@'localhost' IDENTIFIED BY 'homeowner';
+CREATE USER 'test'@'%' IDENTIFIED BY 'homeowner';
 
-GRANT ALL ON *.* TO 'myuser'@'localhost';
-GRANT ALL ON *.* TO 'myuser'@'%';
+GRANT ALL ON *.* TO 'test'@'localhost';
+GRANT ALL ON *.* TO 'test'@'%';
 FLUSH PRIVILEGES;
