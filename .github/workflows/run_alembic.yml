@@ -84,6 +84,7 @@ jobs:
           python alembic_setup.py --user=test --password=homeowner --database=roomr --host=$PUBLIC_IP
           alembic revision --autogenerate
           alembic upgrade head
+          
       - name: Delete Public IP
         if: always()
         run: |
