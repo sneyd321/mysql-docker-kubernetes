@@ -63,7 +63,7 @@ jobs:
       - name: Delete Public IP
         if: always()
         run: |
-          gcloud compute instances delete-access-config mysql-instance-1 --access-config-name="External NAT"
+          gcloud compute instances delete-access-config mysql-instance-1 --access-config-name="External NAT" --zone=us-central1-a
 
       
      
