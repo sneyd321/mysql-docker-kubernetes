@@ -3,6 +3,11 @@ variable "project_id" {
   description = "GCP Project ID"
 }
 
+variable "db_pass" {
+  type        = string
+  description = "MySQL Root Password"
+}
+
 terraform {
   required_providers {
     google = {
@@ -13,7 +18,6 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("${var.project_id}.json")
   project = var.project_id
   region  = "us-central1"
   zone    = "us-central1-a"
@@ -28,6 +32,12 @@ module "gce-container" {
   container = {
     name = "mysql"
     image = "us-central1-docker.pkg.dev/roomr-222721/roomr-docker-repo/mysql"
+    env = [
+      {
+        name  = "MYSQL_ROOT_PASSWORD"
+        value = var.db_pass
+      },
+    ]
     volumeMounts = [
         {
             mountPath = "/var/lib/mysql"
@@ -67,17 +77,21 @@ resource "google_compute_instance" "mysql-instance-1" {
     }
 
     boot_disk {
-        auto_delete = true
+        auto_delete = false
         initialize_params {
             
             image = module.gce-container.source_image
             type = "pd-standard"
-            size = 30
+            size = 10
         }
     }
+    tags = ["mysql-server"]
 
   network_interface {
     network = "default"
+    access_config {
+      network_tier = "STANDARD"
+    }
   }
 
   service_account {
