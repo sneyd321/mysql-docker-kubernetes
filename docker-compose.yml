@@ -8,9 +8,4 @@ services:
         cap_add:
             - SYS_NICE
 
-        volumes: 
-            - C:\Users\Ryan_PC\Projects\RoomRv3-Backend\mysql\mysql-volume:/var/lib/mysql 
-
- 
-            
 
