@@ -41,7 +41,7 @@ jobs:
           pip install cryptography
       - name: Get Public IP Address of VM
         run: |
-          gcloud compute instances start mysql-instance-1
+          gcloud compute instances start mysql-instance-1 --zone=us-central1-a
           gcloud compute instances add-access-config mysql-instance-1 --access-config-name="External NAT" --zone=us-central1-a
           
           
