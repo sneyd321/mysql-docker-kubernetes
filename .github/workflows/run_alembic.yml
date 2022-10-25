@@ -45,12 +45,26 @@ jobs:
         with:
           repository: sneyd321/lease-service-v2
           path: lease-service
-
-      - name: Run Lease Alembic
-        working-directory: "lease-service"
+      - name: Checkout Maintenance Ticket Service
+        uses: actions/checkout@v3
+        with:
+          repository: sneyd321/maintenance-ticket-service
+          path: maintenance-ticket-service
+      - name: Start VM
         run: |
           gcloud compute instances start mysql-instance-1 --zone=us-central1-a
           gcloud compute instances add-access-config mysql-instance-1 --access-config-name="External NAT" --zone=us-central1-a
+      - name: Run Lease Alembic
+        working-directory: "lease-service"
+        run: |
+          PUBLIC_IP=$(gcloud compute instances describe mysql-instance-1 --zone=us-central1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
+          echo $PUBLIC_IP
+          python alembic_setup.py --user=test --password=homeowner --database=roomr --host=$PUBLIC_IP
+          alembic revision --autogenerate
+          alembic upgrade head
+      - name: Run Maintenance Ticket Alembic
+        working-directory: "maintenance-ticket-service"
+        run: |
           PUBLIC_IP=$(gcloud compute instances describe mysql-instance-1 --zone=us-central1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
           echo $PUBLIC_IP
           python alembic_setup.py --user=test --password=homeowner --database=roomr --host=$PUBLIC_IP
