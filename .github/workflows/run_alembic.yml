@@ -60,8 +60,7 @@ jobs:
       - run: |
           PUBLIC_IP=$(gcloud compute instances describe mysql-instance-1 --zone=us-central1-a --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
           echo $PUBLIC_IP
-          mysql -utest -phomeowner -h$PUBLIC_IP -e 'SELECT version()'
-      
+          mysql -utest -phomeowner -h$PUBLIC_IP -e 'DROP TABLE IF EXISTS roomr.alembic_version;'
       - name: Run Lease Alembic
         working-directory: "lease-service"
         run: |
