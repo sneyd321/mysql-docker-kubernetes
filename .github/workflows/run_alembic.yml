@@ -40,6 +40,7 @@ jobs:
           pip install alembic
           pip install aiomysql
           pip install cryptography
+          pip install passlib
      
       - name: Checkout Lease Service
         uses: actions/checkout@v3
