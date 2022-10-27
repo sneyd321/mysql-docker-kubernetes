@@ -66,6 +66,12 @@ jobs:
           repository: sneyd321/tenant-service-v2
           path: tenant-service
 
+      - name: Checkout Lanldord Service
+        uses: actions/checkout@v3
+        with:
+          repository: sneyd321/landlord-service-v2
+          path: landlord-service
+
       - name: Start VM
         run: |
           gcloud compute instances start mysql-instance-1 --zone=us-central1-a
