@@ -101,3 +101,40 @@ resource "google_compute_instance" "mysql-instance-1" {
 
 
 }
+
+resource "google_compute_instance" "redis-instance-1" {
+    name         = "redis-instance-1"
+    machine_type = "e2-micro"
+    zone         = "us-central1-a"
+    allow_stopping_for_update = true
+
+    labels = {
+        container-vm = module.gce-container.vm_container_label
+    }
+
+    metadata = {
+        gce-container-declaration = module.gce-container.metadata_value
+    }
+
+    boot_disk {
+        auto_delete = true
+        initialize_params {
+            image = module.gce-container.source_image
+            type = "pd-standard"
+            size = 10
+        }
+    }
+    tags = ["redis-server"]
+
+  network_interface {
+    network = "default"
+    access_config {}
+  }
+
+  service_account {
+    scopes = [ "cloud-platform" ]
+  }
+
+
+
+}
