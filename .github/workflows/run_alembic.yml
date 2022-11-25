@@ -75,7 +75,7 @@ jobs:
       - name: Start VM
         run: |
           gcloud compute instances start mysql-instance-1 --zone=us-east5-a
-          gcloud compute instances add-access-config mysql-instance-1 --access-config-name="External NAT" --zone=us-east5-a
+          gcloud compute instances add-access-config mysql-instance-1 --access-config-name="external-nat" --zone=us-east5-a
       
       - name: Drop Alembic
         uses: shogo82148/actions-setup-mysql@v1
