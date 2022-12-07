@@ -1,5 +1,5 @@
 name: Run Alembic
-on: [push]
+on: [workflow_dispatch]
 
 jobs:
   build:
@@ -161,7 +161,7 @@ jobs:
       - name: Delete Public IP
         if: always()
         run: |
-          gcloud compute instances delete-access-config mysql-instance-1 --access-config-name="External NAT" --zone=us-east5-a
+          gcloud compute instances delete-access-config mysql-instance-1 --access-config-name="external-nat" --zone=us-east5-a
 
       
      
